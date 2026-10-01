@@ -32,5 +32,6 @@ export const footerNav = {
     { href: "/gizlilik", label: "Gizlilik" },
     { href: "/tibbi-uyari", label: "Tıbbi uyarı" },
     { href: "/ara", label: "Konu ara" },
+    { href: "/yapilacaklar", label: "Yapılacaklar" },
   ],
 };

@@ -452,6 +452,25 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-7xl px-4 pb-16 lg:px-8">
+        <Link
+          href="/yapilacaklar"
+          className="group grain mesh-cream relative flex flex-col justify-between gap-6 overflow-hidden rounded-[2rem] p-6 ring-1 ring-border md:flex-row md:items-center md:p-10"
+        >
+          <div className="relative z-10">
+            <p className="text-xs font-medium tracking-[0.18em] text-rose uppercase">Yapılacaklar</p>
+            <h2 className="font-heading mt-3 text-3xl text-plum md:text-4xl">Yakında eklenecek araçlar</h2>
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-plum/70">
+              Doğum tarihi hesaplayıcı, tekme sayacı, kasılma ölçer, menopoz belirti günlüğü ve
+              daha fazlası. Planlanan her şeyi ve durumunu tek listede gör.
+            </p>
+          </div>
+          <span className="relative z-10 inline-flex h-12 w-fit shrink-0 items-center gap-2 rounded-full bg-plum px-6 text-sm font-medium text-white transition-colors group-hover:bg-rose">
+            Listeyi gör <ArrowRight className="size-4" />
+          </span>
+        </Link>
+      </section>
+
       <section className="mx-auto max-w-7xl space-y-4 px-4 lg:px-8">
         <p className="text-sm text-muted-foreground">
           {EDITORIAL_SUPPORT} {DOCTOR_NAME} bu platformun tıbbi editöryel otoritesidir; site
