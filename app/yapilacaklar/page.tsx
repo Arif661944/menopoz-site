@@ -1,151 +1,125 @@
 import type { Metadata } from "next";
 import { connection } from "next/server";
-import { Check, CircleDashed, LogOut, Loader, Trash2 } from "lucide-react";
-import { PageHero } from "@/components/decor";
+import { Check, LogOut, X } from "lucide-react";
 import { RoadmapAddForm, RoadmapLoginForm } from "@/components/roadmap-forms";
-import { formatDate } from "@/lib/format";
-import {
-  isRoadmapStorageReady,
-  readRoadmap,
-  roadmapAreas,
-  type RoadmapItem,
-  type RoadmapStatus,
-} from "@/lib/roadmap";
+import { isRoadmapStorageReady, readRoadmap, roadmapAreas, type RoadmapItem } from "@/lib/roadmap";
 import { isRoadmapEditor, isRoadmapPasswordSet } from "@/lib/roadmap-auth";
 import { cn } from "@/lib/utils";
 import { logout, removeItem, setStatus } from "./actions";
 
 export const metadata: Metadata = {
   title: "Yapılacaklar",
-  description: "Platforma eklenmesi planlanan araçlar ve özellikler.",
   robots: { index: false },
 };
 
-const columns: { status: RoadmapStatus; title: string; tone: string; icon: typeof Check }[] = [
-  { status: "bekliyor", title: "Bekliyor", tone: "bg-blush", icon: CircleDashed },
-  { status: "yapiliyor", title: "Yapılıyor", tone: "bg-butter", icon: Loader },
-  { status: "tamamlandi", title: "Tamamlandı", tone: "bg-sage", icon: Check },
-];
-
 export default async function RoadmapPage() {
   await connection();
-  const [items, editor] = await Promise.all([readRoadmap(), isRoadmapEditor()]);
-  const storageReady = isRoadmapStorageReady();
-  const passwordSet = isRoadmapPasswordSet();
-  const done = items.filter((item) => item.status === "tamamlandi").length;
+  const [items, isEditor] = await Promise.all([readRoadmap(), isRoadmapEditor()]);
+  const editor = isEditor && isRoadmapStorageReady();
+  const todo = items.filter((item) => item.status !== "tamamlandi");
+  const done = items.filter((item) => item.status === "tamamlandi");
 
   return (
-    <>
-      <PageHero
-        eyebrow="Yapılacaklar"
-        title={
-          <>
-            Platforma <em>eklenecekler</em> listesi.
-          </>
-        }
-        description="Gebelik, doğum ve menopoz için planlanan araçlar. Durumlar güncellendikçe bu sayfa değişir."
-        aside={
-          <div className="rounded-[2rem] bg-white/70 p-6 text-plum ring-1 ring-border">
-            <p className="font-heading text-5xl">
-              {done}
-              <span className="text-2xl text-plum/40"> / {items.length}</span>
-            </p>
-            <p className="mt-1 text-sm text-plum/60">madde tamamlandı</p>
-          </div>
-        }
-      />
-
-      <div className="mx-auto max-w-7xl space-y-10 px-4 py-14 lg:px-8">
-        {!storageReady || !passwordSet ? (
-          <p className="rounded-3xl bg-butter/70 p-5 text-sm leading-relaxed text-plum">
-            {`Düzenleme henüz açık değil: ${[
-              !storageReady && "depolama bağlanmadı",
-              !passwordSet && "düzenleme şifresi tanımlanmadı",
-            ]
-              .filter(Boolean)
-              .join(", ")}. Aşağıdaki liste başlangıç listesidir.`}
-          </p>
+    <div className="mx-auto max-w-6xl px-4 py-6 lg:px-8">
+      <header className="flex flex-wrap items-center justify-between gap-3">
+        <h1 className="font-heading text-3xl text-plum">
+          Yapılacaklar{" "}
+          <span className="text-lg text-plum/40">
+            {done.length}/{items.length}
+          </span>
+        </h1>
+        {isEditor ? (
+          <form action={logout}>
+            <button className="inline-flex items-center gap-1.5 text-sm text-plum/50 hover:text-plum">
+              <LogOut className="size-4" /> Çıkış
+            </button>
+          </form>
+        ) : isRoadmapPasswordSet() ? (
+          <RoadmapLoginForm />
         ) : null}
+      </header>
 
-        {editor ? (
-          <div className="space-y-3">
-            <RoadmapAddForm areas={roadmapAreas} />
-            <form action={logout} className="flex justify-end">
-              <button className="inline-flex items-center gap-1.5 text-sm text-plum/60 hover:text-plum">
-                <LogOut className="size-4" /> Çıkış yap
-              </button>
-            </form>
-          </div>
-        ) : passwordSet ? (
-          <div className="rounded-[2rem] border border-border/70 bg-white p-6 md:p-8">
-            <p className="font-heading text-xl text-plum">Madde eklemek veya durum değiştirmek için giriş yap</p>
-            <div className="mt-4 max-w-lg">
-              <RoadmapLoginForm />
-            </div>
-          </div>
-        ) : null}
-
-        <div className="grid gap-5 lg:grid-cols-3">
-          {columns.map((column) => {
-            const columnItems = items.filter((item) => item.status === column.status);
-            return (
-              <section key={column.status} className={cn("grain relative overflow-hidden rounded-[2rem] p-5", column.tone)}>
-                <h2 className="relative z-10 flex items-center justify-between px-2 pt-1 text-plum">
-                  <span className="font-heading inline-flex items-center gap-2 text-2xl">
-                    <column.icon className="size-5" /> {column.title}
-                  </span>
-                  <span className="rounded-full bg-white/70 px-2.5 py-0.5 text-sm">{columnItems.length}</span>
-                </h2>
-                <ul className="relative z-10 mt-5 space-y-3">
-                  {columnItems.map((item) => (
-                    <RoadmapCard key={item.id} item={item} editor={editor && storageReady} />
-                  ))}
-                  {columnItems.length === 0 ? (
-                    <li className="rounded-2xl border border-dashed border-plum/20 p-5 text-center text-sm text-plum/50">
-                      Bu sütunda madde yok.
-                    </li>
-                  ) : null}
-                </ul>
-              </section>
-            );
-          })}
+      {editor ? (
+        <div className="mt-4">
+          <RoadmapAddForm areas={roadmapAreas} />
         </div>
+      ) : null}
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-2">
+        <RoadmapList title="Yapılacak" items={todo} editor={editor} />
+        <RoadmapList title="Yapıldı" items={done} editor={editor} />
       </div>
-    </>
+    </div>
   );
 }
 
-function RoadmapCard({ item, editor }: { item: RoadmapItem; editor: boolean }) {
+function RoadmapList({ title, items, editor }: { title: string; items: RoadmapItem[]; editor: boolean }) {
   return (
-    <li className="rounded-2xl bg-white p-5 shadow-soft">
-      <div className="flex items-start justify-between gap-3">
-        <span className="rounded-full bg-cream px-2.5 py-0.5 text-xs text-plum/70 ring-1 ring-border">{item.area}</span>
-        <span className="text-xs text-plum/40">{formatDate(item.createdAt)}</span>
-      </div>
-      <h3 className={cn("font-heading mt-3 text-lg leading-snug text-plum", item.status === "tamamlandi" && "line-through decoration-plum/30")}>
-        {item.title}
-      </h3>
-      {item.note ? <p className="mt-2 text-sm leading-relaxed text-plum/70">{item.note}</p> : null}
+    <section className="rounded-2xl border border-border/70 bg-white">
+      <h2 className="flex items-center justify-between border-b border-border/70 px-4 py-2.5 text-sm font-medium text-plum">
+        {title}
+        <span className="text-plum/40">{items.length}</span>
+      </h2>
+      {items.length === 0 ? (
+        <p className="px-4 py-6 text-center text-sm text-plum/40">Boş</p>
+      ) : (
+        <ul className="divide-y divide-border/60">
+          {items.map((item) => (
+            <RoadmapRow key={item.id} item={item} editor={editor} />
+          ))}
+        </ul>
+      )}
+    </section>
+  );
+}
+
+function RoadmapRow({ item, editor }: { item: RoadmapItem; editor: boolean }) {
+  const isDone = item.status === "tamamlandi";
+  const box = (
+    <span
+      className={cn(
+        "flex size-5 shrink-0 items-center justify-center rounded-md border",
+        isDone ? "border-sage bg-sage text-plum" : "border-plum/25 bg-white",
+      )}
+    >
+      {isDone ? <Check className="size-3.5" /> : null}
+    </span>
+  );
+
+  return (
+    <li className="group flex items-start gap-3 px-4 py-2.5">
       {editor ? (
-        <div className="mt-4 flex flex-wrap items-center gap-1.5 border-t border-border/60 pt-3">
-          {columns
-            .filter((column) => column.status !== item.status)
-            .map((column) => (
-              <form key={column.status} action={setStatus}>
-                <input type="hidden" name="id" value={item.id} />
-                <input type="hidden" name="status" value={column.status} />
-                <button className="rounded-full bg-cream px-3 py-1 text-xs text-plum ring-1 ring-border hover:bg-blush">
-                  {column.title}
-                </button>
-              </form>
-            ))}
-          <form action={removeItem} className="ml-auto">
-            <input type="hidden" name="id" value={item.id} />
-            <button aria-label={`${item.title} maddesini sil`} className="rounded-full p-1.5 text-plum/40 hover:bg-destructive/10 hover:text-destructive">
-              <Trash2 className="size-4" />
-            </button>
-          </form>
-        </div>
+        <form action={setStatus} className="pt-0.5">
+          <input type="hidden" name="id" value={item.id} />
+          <input type="hidden" name="status" value={isDone ? "bekliyor" : "tamamlandi"} />
+          <button aria-label={isDone ? "Yapılacak olarak işaretle" : "Yapıldı olarak işaretle"} className="block">
+            {box}
+          </button>
+        </form>
+      ) : (
+        <span className="pt-0.5">{box}</span>
+      )}
+      <div className="min-w-0 flex-1">
+        <p className={cn("text-sm font-medium text-plum", isDone && "text-plum/45 line-through")}>
+          {item.title}
+          <span className="ml-2 align-middle text-[11px] font-normal text-plum/40">{item.area}</span>
+        </p>
+        {item.note ? (
+          <p className="truncate text-xs text-plum/55" title={item.note}>
+            {item.note}
+          </p>
+        ) : null}
+      </div>
+      {editor ? (
+        <form action={removeItem}>
+          <input type="hidden" name="id" value={item.id} />
+          <button
+            aria-label={`${item.title} maddesini sil`}
+            className="rounded-md p-1 text-plum/25 hover:bg-destructive/10 hover:text-destructive sm:opacity-0 sm:group-hover:opacity-100 sm:focus-visible:opacity-100"
+          >
+            <X className="size-4" />
+          </button>
+        </form>
       ) : null}
     </li>
   );

@@ -2,7 +2,7 @@ import "server-only";
 
 import { get, put } from "@vercel/blob";
 
-export const roadmapStatuses = ["bekliyor", "yapiliyor", "tamamlandi"] as const;
+export const roadmapStatuses = ["bekliyor", "tamamlandi"] as const;
 export type RoadmapStatus = (typeof roadmapStatuses)[number];
 
 export const roadmapAreas = ["Gebelik", "Doğum", "Lohusalık", "Adet döngüsü", "Menopoz", "Genel"] as const;
@@ -89,7 +89,8 @@ export async function readRoadmap(): Promise<RoadmapItem[]> {
   const result = await get(BLOB_PATH, { access: "private", useCache: false });
   if (!result || result.statusCode !== 200) return seedItems;
   const data = (await new Response(result.stream).json()) as { items?: RoadmapItem[] };
-  return Array.isArray(data.items) ? data.items : seedItems;
+  if (!Array.isArray(data.items)) return seedItems;
+  return data.items.map((item) => (item.status === "tamamlandi" ? item : { ...item, status: "bekliyor" }));
 }
 
 export async function writeRoadmap(items: RoadmapItem[]) {
