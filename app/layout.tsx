@@ -19,7 +19,7 @@ const heading = Fraunces({
 
 export const metadata: Metadata = {
   title: {
-    default: `${PLATFORM_NAME} — Gebelik, doğum ve lohusalık için bilgi ve topluluk`,
+    default: `${PLATFORM_NAME} — Gebelik, doğum, lohusalık ve menopoz için bilgi ve topluluk`,
     template: `%s | ${PLATFORM_NAME}`,
   },
   description:
