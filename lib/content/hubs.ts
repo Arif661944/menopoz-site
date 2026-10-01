@@ -83,6 +83,6 @@ export const menopauseCategories = [
   { title: "Hormon Tedavisi", href: "/yazilar/hormon-tedavisi-nedir" },
   { title: "Beslenme", href: "/yazilar/menopozda-beslenme" },
   { title: "Egzersiz", href: "/yazilar/menopoz-ve-egzersiz" },
-  { title: "Menopoz ve Günlük Yaşam", href: "/forum/anne-sagligi" },
+  { title: "Menopoz ve Günlük Yaşam", href: "/forum/menopoz" },
   { title: "Menopozda Doğru Bilinen Yanlışlar", href: "/yazilar/menopozda-dogru-bilinen-yanlislar" },
 ];

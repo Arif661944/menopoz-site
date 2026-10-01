@@ -3,6 +3,7 @@ export const navItems = [
   { href: "/gebelik", label: "Gebelik" },
   { href: "/dogum", label: "Doğum" },
   { href: "/dogum-sonrasi", label: "Lohusalık" },
+  { href: "/menopoz", label: "Menopoz" },
   { href: "/kadin-sagligi", label: "Kadın Sağlığı" },
   { href: "/soru-cevap", label: "Soru & Cevap" },
   { href: "/forum", label: "Forum" },
@@ -16,7 +17,8 @@ export const footerNav = {
     { href: "/gebelik#haftalar", label: "Hafta hafta gebelik" },
     { href: "/dogum", label: "Doğuma hazırlık" },
     { href: "/dogum-sonrasi", label: "Lohusalık" },
-    { href: "/menopoz", label: "Diğer dönemler: Menopoz" },
+    { href: "/menopoz", label: "Menopoz rehberi" },
+    { href: "/menopoz#belirtiler", label: "Menopoz belirtileri" },
   ],
   topluluk: [
     { href: "/forum", label: "Forum" },

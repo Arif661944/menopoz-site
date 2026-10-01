@@ -20,6 +20,7 @@ import { TopicMarquee } from "@/components/topic-marquee";
 import { DOCTOR_NAME, DOCTOR_TITLE, EDITORIAL_SUPPORT } from "@/lib/brand";
 import { articles, forumCategories, forumPosts, lastActivity, questions } from "@/lib/content";
 import { instagramAccount, socialPosts } from "@/lib/content/social";
+import { menopauseSymptoms } from "@/lib/content/symptoms";
 import { formatDate } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
@@ -63,6 +64,7 @@ const motherhoodCategories = new Set(["Gebelik", "Doğum", "Doğum Sonrası"]);
 export default function HomePage() {
   const motherhoodArticles = articles.filter((article) => motherhoodCategories.has(article.category));
   const [leadArticle, ...restArticles] = motherhoodArticles;
+  const menopauseArticles = articles.filter((article) => article.category === "Menopoz").slice(0, 4);
   const trending = questions.filter((question) => motherhoodCategories.has(question.category)).slice(0, 4);
 
   const threads = forumPosts
@@ -354,6 +356,62 @@ export default function HomePage() {
           {restArticles.slice(0, 4).map((article) => (
             <ArticleCard key={article.slug} article={article} />
           ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-24 lg:px-8">
+        <div className="grain mesh-plum relative overflow-hidden rounded-[2.5rem] p-8 text-white md:p-12">
+          <div className="relative z-10 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+            <div>
+              <p className="text-xs font-medium tracking-[0.18em] text-peach uppercase">Menopoz rehberi</p>
+              <h2 className="font-heading mt-4 text-4xl leading-tight md:text-5xl">
+                Hayatın bir sonraki evresine <em className="text-peach">hazırlıklı</em> gir.
+              </h2>
+              <p className="mt-5 max-w-md leading-relaxed text-white/70">
+                Perimenopozdan menopoz sonrasına; sıcak basmaları, uyku, ruh hali, kemik sağlığı ve
+                tedavi seçenekleri üzerine sakin, anlaşılır bilgiler.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {menopauseSymptoms.slice(0, 6).map((symptom) => (
+                  <Link
+                    key={symptom.slug}
+                    href="/menopoz#belirtiler"
+                    className="rounded-full bg-white/10 px-3 py-1 text-sm ring-1 ring-white/15 transition-colors hover:bg-white/20"
+                  >
+                    {symptom.title}
+                  </Link>
+                ))}
+              </div>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link
+                  href="/menopoz"
+                  className="inline-flex h-12 items-center gap-2 rounded-full bg-white px-6 text-sm font-medium text-plum transition-transform hover:-translate-y-0.5"
+                >
+                  Menopoz rehberi <ArrowRight className="size-4" />
+                </Link>
+                <Link
+                  href="/forum/menopoz"
+                  className="inline-flex h-12 items-center rounded-full border border-white/25 px-6 text-sm font-medium hover:bg-white/10"
+                >
+                  Menopoz forumu
+                </Link>
+              </div>
+            </div>
+            <ul className="grid gap-3 sm:grid-cols-2">
+              {menopauseArticles.map((article) => (
+                <li key={article.slug}>
+                  <Link
+                    href={`/yazilar/${article.slug}`}
+                    className="group flex h-full flex-col rounded-3xl bg-white/[0.07] p-5 ring-1 ring-white/10 transition-colors hover:bg-white/[0.12]"
+                  >
+                    <span className="text-xs text-white/50">{article.readingMinutes} dk okuma</span>
+                    <span className="font-heading mt-2 text-lg leading-snug">{article.title}</span>
+                    <ArrowUpRight className="mt-auto size-4 self-end text-white/40 transition-all group-hover:rotate-45 group-hover:text-peach" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 

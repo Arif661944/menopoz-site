@@ -36,8 +36,8 @@ export function SiteFooter() {
               <p className="font-heading text-xl">{PLATFORM_NAME}</p>
             </div>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/65">
-              Bebek planlamaktan lohusalığa, anne olma yolculuğundaki kadınlar için
-              anlaşılır bilgi ve ölçülü bir topluluk.
+              Bebek planlamaktan lohusalığa, oradan menopoza; kadınlar için anlaşılır
+              bilgi ve ölçülü bir topluluk.
             </p>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/65">{EDITORIAL_SUPPORT}</p>
             <a

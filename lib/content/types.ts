@@ -32,6 +32,7 @@ export type ForumCategory =
   | "doguma-hazirlik"
   | "lohusalik-emzirme"
   | "anne-sagligi"
+  | "menopoz"
   | "gunluk-yasam";
 
 export type ForumCategoryMeta = {
@@ -39,7 +40,7 @@ export type ForumCategoryMeta = {
   title: string;
   description: string;
   tone: string;
-  icon: "sprout" | "baby" | "bag" | "heart" | "flower" | "coffee";
+  icon: "sprout" | "baby" | "bag" | "heart" | "flower" | "sun" | "coffee";
 };
 
 export type ContentKind = "article" | "faq" | "qa" | "forum" | "topic";

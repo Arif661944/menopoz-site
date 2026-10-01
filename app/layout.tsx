@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: `%s | ${PLATFORM_NAME}`,
   },
   description:
-    "Bebek planlamaktan lohusalığa, anne olma yolculuğundaki kadınlar için anlaşılır bilgi, hafta hafta gebelik rehberi ve ölçülü bir anneler forumu.",
+    "Bebek planlamaktan lohusalığa, oradan menopoza; kadınlar için anlaşılır bilgi, hafta hafta gebelik rehberi, menopoz rehberi ve ölçülü bir topluluk forumu.",
   applicationName: PLATFORM_NAME,
 };
 

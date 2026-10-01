@@ -107,7 +107,7 @@ export default async function ForumPage({
       </section>
 
       <section className="mx-auto max-w-7xl px-4 lg:px-8">
-        <div className="relative z-20 -mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
+        <div className="relative z-20 -mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7">
           {forumCategories.map((category) => {
             const count = forumPosts.filter((post) => post.category === category.slug).length;
             return (

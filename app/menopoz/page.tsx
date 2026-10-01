@@ -1,8 +1,10 @@
+import Link from "next/link";
 import { ArticleCard } from "@/components/article-card";
 import { HubHero, SectionHeading, TopicGrid } from "@/components/decor";
+import { ForumThreadRow } from "@/components/forum-bits";
 import { MedicalDisclaimer } from "@/components/notices";
 import { SymptomExplorer } from "@/components/symptom-explorer";
-import { articles } from "@/lib/content";
+import { articles, forumPosts } from "@/lib/content";
 import { menopauseCategories } from "@/lib/content/hubs";
 
 export const metadata = {
@@ -14,11 +16,12 @@ export default function MenopausePage() {
   const related = articles.filter(
     (article) => article.category === "Menopoz" || article.category === "Cinsel Sağlık",
   );
+  const threads = forumPosts.filter((post) => post.category === "menopoz");
 
   return (
     <>
       <HubHero
-        eyebrow="Diğer dönemler"
+        eyebrow="Menopoz rehberi"
         title={
           <>
             Menopozu anlamak, <em>vücudunu anlamakla başlar.</em>
@@ -43,6 +46,20 @@ export default function MenopausePage() {
             Kemik, kalp-damar, tarama ve günlük bakım uzun vadede öne çıkar. Belirtiler azalmış
             olsa da koruyucu sağlık devam eder.
           </p>
+        </section>
+
+        <section className="pb-20">
+          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+            <SectionHeading eyebrow="Forumdan" title={<>Bu dönemi yaşayanlar <em>konuşuyor</em></>} />
+            <Link href="/forum/menopoz" className="text-sm font-medium text-rose hover:underline">
+              Tüm menopoz konuları
+            </Link>
+          </div>
+          <div className="mt-8 space-y-3">
+            {threads.map((post) => (
+              <ForumThreadRow key={post.slug} post={post} />
+            ))}
+          </div>
         </section>
 
         <section className="pb-16">

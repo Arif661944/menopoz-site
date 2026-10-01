@@ -8,6 +8,7 @@ import {
   MessageCircle,
   Pin,
   Sprout,
+  SunMedium,
   type LucideIcon,
 } from "lucide-react";
 import { getForumCategory, lastActivity } from "@/lib/content";
@@ -21,6 +22,7 @@ export const forumIcons: Record<ForumCategoryMeta["icon"], LucideIcon> = {
   bag: Luggage,
   heart: HeartHandshake,
   flower: Flower2,
+  sun: SunMedium,
   coffee: Coffee,
 };
 
