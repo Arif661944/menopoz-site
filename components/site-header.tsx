@@ -48,7 +48,7 @@ export function SiteHeader() {
                 {PLATFORM_NAME}
               </span>
               <span className="block text-[11px] tracking-[0.14em] text-muted-foreground uppercase">
-                Anne olma yolculuğu
+                Kadın Topluluğu & Bilgi
               </span>
             </span>
           </Link>
@@ -85,11 +85,11 @@ export function SiteHeader() {
               <Search className="size-4" />
             </Link>
             <Link
-              href="/soru-sor"
+              href="/forum#yeni-konu"
               className="inline-flex h-10 items-center gap-2 rounded-full bg-rose px-4 text-sm font-medium text-white shadow-[0_10px_30px_-12px] shadow-rose transition-transform hover:-translate-y-0.5"
             >
               <MessageCirclePlus className="size-4" />
-              <span className="hidden sm:inline">Soru Sor</span>
+              <span className="hidden sm:inline">Konu Aç</span>
             </Link>
             <Sheet>
               <SheetTrigger
@@ -124,10 +124,10 @@ export function SiteHeader() {
                     Konu Ara
                   </Link>
                   <Link
-                    href="/soru-sor"
+                    href="/forum#yeni-konu"
                     className="mt-2 rounded-2xl bg-rose px-4 py-3 text-center text-base font-medium text-white"
                   >
-                    Soru Sor
+                    Yeni Konu Aç
                   </Link>
                 </nav>
               </SheetContent>

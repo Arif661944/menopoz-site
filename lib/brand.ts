@@ -1,4 +1,4 @@
-export const PLATFORM_NAME = "Gebelik ile Yaşam";
+export const PLATFORM_NAME = "Kadınlar Arasında";
 
 export const DOCTOR_NAME = "Dr. İsmail Aykut";
 export const DOCTOR_TITLE = "Kadın Hastalıkları ve Doğum Uzmanı";

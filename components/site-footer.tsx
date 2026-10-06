@@ -21,10 +21,10 @@ export function SiteFooter() {
               Foruma katıl <ArrowUpRight className="size-4" />
             </Link>
             <Link
-              href="/soru-sor"
+              href="/forum#yeni-konu"
               className="inline-flex h-12 items-center gap-2 rounded-full border border-white/25 px-6 text-sm font-medium transition-colors hover:bg-white/10"
             >
-              Anonim soru sor
+              Yeni konu aç
             </Link>
           </div>
         </div>
@@ -36,8 +36,8 @@ export function SiteFooter() {
               <p className="font-heading text-xl">{PLATFORM_NAME}</p>
             </div>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/65">
-              Bebek planlamaktan lohusalığa, oradan menopoza; kadınlar için anlaşılır
-              bilgi ve ölçülü bir topluluk.
+              Kadınlar Arasında; gebelik, kadın sağlığı ve menopoz dönemlerinde
+              deneyim paylaşımı, güvenli forum ve anlaşılır bilgi platformu.
             </p>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/65">{EDITORIAL_SUPPORT}</p>
             <a

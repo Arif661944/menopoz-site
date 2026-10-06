@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import type { ReactNode } from "react";
 import { Figtree, Fraunces } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -19,11 +20,11 @@ const heading = Fraunces({
 
 export const metadata: Metadata = {
   title: {
-    default: `${PLATFORM_NAME} — Gebelik, doğum, lohusalık ve menopoz için bilgi ve topluluk`,
+    default: `${PLATFORM_NAME} — Kadın sağlığı, gebelik ve menopoz topluluğu`,
     template: `%s | ${PLATFORM_NAME}`,
   },
   description:
-    "Bebek planlamaktan lohusalığa, oradan menopoza; kadınlar için anlaşılır bilgi, hafta hafta gebelik rehberi, menopoz rehberi ve ölçülü bir topluluk forumu.",
+    "Kadınlar Arasında; gebelikten menopoza, kadın sağlığının her evresinde deneyim paylaşabileceğin, güvenli ve moderasyonlu kadın topluluğu ve bilgi platformu.",
   applicationName: PLATFORM_NAME,
 };
 
@@ -31,7 +32,7 @@ export const viewport: Viewport = {
   themeColor: "#3b1a2a",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="tr"

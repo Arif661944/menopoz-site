@@ -16,15 +16,16 @@ export default function AboutPage() {
         eyebrow="Hakkımızda"
         title={
           <>
-            Anne olma yolculuğunda <em>yanında</em> bir kaynak.
+            Kadınların her döneminde <em>yanında</em> bir topluluk.
           </>
         }
       />
       <div className="mx-auto max-w-4xl px-4 py-14 lg:px-8">
         <div className="space-y-5 text-lg leading-relaxed text-plum/85">
           <p className="font-heading text-2xl leading-relaxed text-plum">
-            {PLATFORM_NAME}, bebek planlayan, hamile olan ve yeni doğum yapmış kadınların anlaşılır
-            yanıt aradığı bir bilgi ve topluluk platformudur.
+            {PLATFORM_NAME}, gebelik, lohusalık, kadın sağlığı ve menopoz dönemlerinde
+            kadınların birbirine destek olduğu, deneyimlerini paylaştığı ve anlaşılır
+            sağlık bilgisine ulaştığı bağımsız bir kadın platformudur.
           </p>
           <p>
             {DOCTOR_NAME} ({DOCTOR_TITLE}) platformun tıbbi editöryel otoritesidir. Bu site onun
