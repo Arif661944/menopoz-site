@@ -8,8 +8,8 @@ import { forumCategories, forumPosts, lastActivity } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 export const metadata = {
-  title: "Anneler Forumu",
-  description: "Bebek planlayan, hamile ve yeni anne olan kadınların deneyim paylaştığı moderasyonlu forum.",
+  title: "Kadınlar Arasında Forumu",
+  description: "Kadınların gebelik, lohusalık, kadın sağlığı ve menopozda deneyim paylaştığı güvenli ve moderasyonlu forum.",
 };
 
 const sorts = [
